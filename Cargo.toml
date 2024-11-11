@@ -1,0 +1,36 @@
+[package]
+name = "player-Rust"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+## web core ##
+[dependencies.tokio]
+version = "1.40.0"
+features = ["full"]
+
+[dependencies.axum]
+version = "0.7.6"
+
+## web json ##
+[dependencies.serde]
+version = "1.0.210"
+features = ["derive"]
+
+[dependencies.serde_json]
+version = "1.0.131"
+
+## web utils ##
+[dependencies.uuid]
+version = "1.10.0"
+features = ["serde"]
+
+## logging ##
+[dependencies.tracing]
+version = "0.1.40"
+
+[dependencies.tracing-subscriber]
+version = "0.3.18"
+
+

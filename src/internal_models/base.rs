@@ -131,4 +131,8 @@ impl Base {
         let attack_resistance: u32 = self.damage_from_base(&base);
         if units_in_n_ticks.is_some() {units_in_n_ticks.unwrap() + attack_resistance} else {0}
     }
+
+    pub fn required_to_kill_other_base(&self, base: &Arc<Base>) -> u32 {
+        self.required_to_kill_in_n_ticks(base, self.distance_to_base(&base))
+    }
 }

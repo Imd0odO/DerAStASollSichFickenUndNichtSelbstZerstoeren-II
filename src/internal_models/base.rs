@@ -60,4 +60,38 @@ impl Base {
 
         hits
     }
+
+    pub fn damage_from_base(&self, base: &Arc<Base>) -> u32 {
+        let mut incoming_attacks: Vec<BoardAction> = self.incoming_attacks.lock().unwrap().iter().filter(|attack| {
+            attack.upgrade().unwrap().src.upgrade().unwrap().uid == base.uid
+        }).map(|attack| {(*attack.upgrade().unwrap()).clone()}).collect();
+
+        let mut outgoing_attacks: Vec<BoardAction> = base.incoming_attacks.lock().unwrap().iter().filter(|attack| {
+            attack.upgrade().unwrap().src.upgrade().unwrap().uid == self.uid
+        }).map(|attack| {(*attack.upgrade().unwrap()).clone()}).collect();
+
+        incoming_attacks.iter_mut().for_each(|outgoing_attack| {
+            outgoing_attacks.iter_mut().for_each(|incoming_attack| {
+                let ticks_until_collision: u32 = if outgoing_attack.progress.traveled > incoming_attack.progress.traveled {outgoing_attack.progress.traveled - incoming_attack.progress.traveled} else {incoming_attack.progress.traveled - outgoing_attack.progress.traveled} / 2;
+
+                let own_value_at_collision: u32 = outgoing_attack.value_in_n_ticks_path_only(&ticks_until_collision);
+                let opponent_value_at_collision: u32 = incoming_attack.value_in_n_ticks_path_only(&ticks_until_collision);
+
+                if opponent_value_at_collision == own_value_at_collision {
+                    outgoing_attack.amount = 0;
+                    incoming_attack.amount = 0;
+                }
+                else if opponent_value_at_collision > own_value_at_collision {
+                    outgoing_attack.amount = 0;
+                    incoming_attack.amount -= opponent_value_at_collision - own_value_at_collision;
+                }
+                else if opponent_value_at_collision < own_value_at_collision {
+                    incoming_attack.amount = 0;
+                    outgoing_attack.amount -= own_value_at_collision - opponent_value_at_collision
+                }
+            })
+        });
+
+        incoming_attacks.iter().map(|attack| attack.value_at_destination_path_only()).sum()
+    }
 }

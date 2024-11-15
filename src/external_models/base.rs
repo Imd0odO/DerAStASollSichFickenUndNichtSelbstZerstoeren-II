@@ -2,7 +2,7 @@ use crate::external_models::position::Position;
 use serde::Deserialize;
 
 
-#[derive(Deserialize, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Deserialize, Debug, PartialEq, Eq, PartialOrd, Ord, Clone)]
 pub struct Base {
     pub position: Position,       // position of the base
     pub uid: u32,                 // uid of the base
@@ -23,20 +23,6 @@ impl Default for Base {
             population: 0,
             level: 0,
             units_until_upgrade: 0,
-        }
-    }
-}
-
-impl Clone for Base {
-    fn clone(&self) -> Self {
-        Self {
-            position: self.position,
-            uid: self.uid,
-            name: self.name.clone(),
-            player: self.player,
-            population: self.population,
-            level: self.level,
-            units_until_upgrade: self.units_until_upgrade,
         }
     }
 }

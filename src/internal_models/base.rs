@@ -40,6 +40,7 @@ impl Base {
 
     pub fn search_n_nearest_bases(&self, n: u32, other_bases: &HashMap<u32, Arc<Base>>) -> Vec<Arc<Base>> {
         let mut hits: Vec<Arc<Base>> = vec![];
+        let mut distances: HashMap<u32, u32> = HashMap::new();
 
         other_bases.iter().for_each(|(_, base)| {
             // fill the array until n
@@ -47,8 +48,10 @@ impl Base {
                 hits.push(base.clone())
             }
 
+            distances.insert(base.uid, self.distance_to_base(&base));
+
             // todo: make performant later
-            hits.sort_by(|a, b| {self.distance_to_base(a).cmp(&self.distance_to_base(b))});
+            hits.sort_by(|a, b| {distances.get(&a.uid).unwrap().cmp(distances.get(&b.uid).unwrap())});
 
             if hits.len() > n as usize {
                 hits.pop();

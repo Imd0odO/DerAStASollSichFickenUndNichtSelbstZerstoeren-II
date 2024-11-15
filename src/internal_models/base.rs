@@ -4,6 +4,9 @@ use crate::external_models::position::Position;
 use crate::internal_models::board_action::BoardAction;
 use crate::external_models::base::Base as ExternalBase;
 use crate::external_models::base_level::BaseLevel;
+use itertools;
+use itertools::Itertools;
+use serde::__private::de::Content::F32;
 
 #[derive(Debug)]
 pub struct Base {
@@ -63,11 +66,15 @@ impl Base {
 
     pub fn damage_from_base(&self, base: &Arc<Base>) -> u32 {
         let mut incoming_attacks: Vec<BoardAction> = self.incoming_attacks.lock().unwrap().iter().filter(|attack| {
-            attack.upgrade().unwrap().src.upgrade().unwrap().uid == base.uid
+            let attack: Arc<BoardAction> = attack.upgrade().unwrap();
+            let origin: Arc<Base> = attack.src.upgrade().unwrap();
+            origin.uid == base.uid && attack.player != self.player
         }).map(|attack| {(*attack.upgrade().unwrap()).clone()}).collect();
 
         let mut outgoing_attacks: Vec<BoardAction> = base.incoming_attacks.lock().unwrap().iter().filter(|attack| {
-            attack.upgrade().unwrap().src.upgrade().unwrap().uid == self.uid
+            let attack: Arc<BoardAction> = attack.upgrade().unwrap();
+            let origin: Arc<Base> = attack.src.upgrade().unwrap();
+            origin.uid == self.uid && attack.player != self.player
         }).map(|attack| {(*attack.upgrade().unwrap()).clone()}).collect();
 
         incoming_attacks.iter_mut().for_each(|outgoing_attack| {
@@ -93,5 +100,29 @@ impl Base {
         });
 
         incoming_attacks.iter().map(|attack| attack.value_at_destination_path_only()).sum()
+    }
+
+    pub fn will_die(&self) -> bool {
+        self.units_in_n_ticks(1_000_000).is_none()
+    }
+
+    pub fn units_in_n_ticks(&self, n: u32) -> Option<u32> {
+        let mut hitpoints: i64 = self.population as i64;
+        let attacks = self.incoming_attacks.lock().unwrap();
+        let last_attack: Option<&Weak<BoardAction>> = attacks.iter().max_by(|attack_a, attack_b| attack_a.upgrade().unwrap().progress.distance_remaining().cmp(&attack_b.upgrade().unwrap().progress.distance_remaining()));
+        let last_attack_hit_time: u32 = if last_attack.is_none() {0} else {last_attack.unwrap().upgrade().unwrap().progress.distance_remaining()};
+
+        hitpoints += (last_attack_hit_time * self.config.upgrade().unwrap()[self.level as usize].spawn_rate) as i64;
+
+        self.incoming_attacks.lock().unwrap().iter().map(|attack| attack.upgrade().unwrap().src.upgrade().unwrap()).unique_by(|base| base.uid).for_each(|base| {
+            if hitpoints >= 0 {
+                hitpoints -= self.damage_from_base(&base) as i64;
+            }
+        });
+
+        if hitpoints < 0 {
+            return None;
+        }
+        Some(hitpoints as u32)
     }
 }

@@ -23,7 +23,7 @@ impl GameState {
         };
 
         // create Hashmap for bases
-        let mut bases: HashMap<u32, Arc<Base>> = HashMap::with_capacity(1_000);
+        let mut bases: HashMap<u32, Arc<Base>> = HashMap::with_capacity(10_000);
         game_state.bases.iter().for_each(|base| {
             bases.insert(base.uid, Base::from_external(base, &game_config.base_levels));
         });

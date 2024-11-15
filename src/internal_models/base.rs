@@ -15,7 +15,7 @@ pub struct Base {
     pub units_until_upgrade: u32, // number of units required to upgrade
 
     pub incoming_attacks: Mutex<Vec<Weak<BoardAction>>>,
-    pub config: Weak<Vec<BaseLevel>>
+    pub config: Weak<Vec<BaseLevel>>,
 }
 
 impl Base {
@@ -39,6 +39,22 @@ impl Base {
     }
 
     pub fn search_n_nearest_bases(&self, n: u32, other_bases: &HashMap<u32, Arc<Base>>) -> Vec<Arc<Base>> {
-        todo!()
+        let mut hits: Vec<Arc<Base>> = vec![];
+
+        other_bases.iter().for_each(|(_, base)| {
+            // fill the array until n
+            if hits.len() < n as usize {
+                hits.push(base.clone())
+            }
+
+            // todo: make performant later
+            hits.sort_by(|a, b| {self.distance_to_base(a).cmp(&self.distance_to_base(b))});
+
+            if hits.len() > n as usize {
+                hits.pop();
+            }
+        });
+
+        hits
     }
 }

@@ -1,2 +1,2 @@
 pub mod strategy;
-mod config;
+pub mod config;

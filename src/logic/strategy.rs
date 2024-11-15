@@ -21,9 +21,7 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
     });
 
     own_bases.iter().for_each(|own_base| {
-       enemy_bases.iter().for_each(|enemy_base| {
-
-
+        enemy_bases.iter().for_each(|enemy_base| {
 
 
        })

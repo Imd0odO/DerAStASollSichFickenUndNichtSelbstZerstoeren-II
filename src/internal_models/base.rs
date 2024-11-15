@@ -109,7 +109,7 @@ impl Base {
     pub fn units_in_n_ticks(&self, n: u32) -> Option<u32> {
         let mut hitpoints: i64 = self.population as i64;
         let attacks = self.incoming_attacks.lock().unwrap();
-        let last_attack: Option<&Weak<BoardAction>> = attacks.iter().max_by(|attack_a, attack_b| attack_a.upgrade().unwrap().progress.distance_remaining().cmp(&attack_b.upgrade().unwrap().progress.distance_remaining()));
+        let last_attack: Option<&Weak<BoardAction>> = attacks.iter().filter(|attack| attack.upgrade().unwrap().progress.distance_remaining() < n).max_by(|attack_a, attack_b| attack_a.upgrade().unwrap().progress.distance_remaining().cmp(&attack_b.upgrade().unwrap().progress.distance_remaining()));
         let last_attack_hit_time: u32 = if last_attack.is_none() {0} else {last_attack.unwrap().upgrade().unwrap().progress.distance_remaining()};
 
         hitpoints += (last_attack_hit_time * self.config.upgrade().unwrap()[self.level as usize].spawn_rate) as i64;
@@ -124,5 +124,11 @@ impl Base {
             return None;
         }
         Some(hitpoints as u32)
+    }
+
+    pub fn required_to_kill_in_n_ticks(&self, base: &Arc<Base>, n: u32) -> u32 {
+        let units_in_n_ticks: Option<u32> = base.units_in_n_ticks(n);
+        let attack_resistance: u32 = self.damage_from_base(&base);
+        if units_in_n_ticks.is_some() {units_in_n_ticks.unwrap() + attack_resistance} else {0}
     }
 }

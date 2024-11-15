@@ -71,6 +71,8 @@ impl Base {
             origin.uid == base.uid && attack.player != self.player
         }).map(|attack| {(*attack.upgrade().unwrap()).clone()}).collect();
 
+        /*
+
         let mut outgoing_attacks: Vec<BoardAction> = base.incoming_attacks.lock().unwrap().iter().filter(|attack| {
             let attack: Arc<BoardAction> = attack.upgrade().unwrap();
             let origin: Arc<Base> = attack.src.upgrade().unwrap();
@@ -98,6 +100,7 @@ impl Base {
                 }
             })
         });
+        */
 
         incoming_attacks.iter().map(|attack| attack.value_at_destination_path_only()).sum()
     }

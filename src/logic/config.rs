@@ -1,116 +1,116 @@
 
 pub const MIN_REQUIREMENTS: [Requirement; 14] = [
-    // Level: n
+    // Level: 20
     Requirement{
-        MIN_UNITS_AFTER_ATTACK:15,
+        MIN_UNITS_AFTER_ATTACK: 3,
         MIN_UNITS_FOR_ATTACK: 5,
         MIN_UNITS_FOR_UPGRADE: 10,
         MIN_UNITS_FOR_DISTRIBUTION: 8,
-        MAX_UNITS_FOR_SUPPLY: 4,
+        MAX_UNITS_FOR_SUPPLY: 5,
     },
-    // Level: n
+    // Level: 40
     Requirement{
-        MIN_UNITS_AFTER_ATTACK: 30,
+        MIN_UNITS_AFTER_ATTACK: 6,
         MIN_UNITS_FOR_ATTACK: 10,
         MIN_UNITS_FOR_UPGRADE: 20,
         MIN_UNITS_FOR_DISTRIBUTION: 16,
-        MAX_UNITS_FOR_SUPPLY: 8,
+        MAX_UNITS_FOR_SUPPLY: 10,
     },
-    // Level: n
+    // Level: 80
     Requirement{
-        MIN_UNITS_AFTER_ATTACK: 65,
+        MIN_UNITS_AFTER_ATTACK: 12,
         MIN_UNITS_FOR_ATTACK: 20,
-        MIN_UNITS_FOR_UPGRADE: 30,
+        MIN_UNITS_FOR_UPGRADE: 40,
         MIN_UNITS_FOR_DISTRIBUTION: 32,
-        MAX_UNITS_FOR_SUPPLY: 16,
+        MAX_UNITS_FOR_SUPPLY: 20,
     },
-    // Level: n
+    // Level: 100
     Requirement{
-        MIN_UNITS_AFTER_ATTACK: 80,
+        MIN_UNITS_AFTER_ATTACK: 16,
         MIN_UNITS_FOR_ATTACK: 25,
         MIN_UNITS_FOR_UPGRADE: 50,
         MIN_UNITS_FOR_DISTRIBUTION: 40,
-        MAX_UNITS_FOR_SUPPLY: 20,
+        MAX_UNITS_FOR_SUPPLY: 24,
     },
-    // Level: n
+    // Level: 200
     Requirement{
-        MIN_UNITS_AFTER_ATTACK: 165,
-        MIN_UNITS_FOR_ATTACK: 60,
-        MIN_UNITS_FOR_UPGRADE: 80,
+        MIN_UNITS_AFTER_ATTACK: 32,
+        MIN_UNITS_FOR_ATTACK: 50,
+        MIN_UNITS_FOR_UPGRADE: 120,
         MIN_UNITS_FOR_DISTRIBUTION: 80,
-        MAX_UNITS_FOR_SUPPLY: 40,
+        MAX_UNITS_FOR_SUPPLY: 50,
     },
-    // Level: n
+    // Level: 300
     Requirement{
-        MIN_UNITS_AFTER_ATTACK: 240,
+        MIN_UNITS_AFTER_ATTACK: 45,
         MIN_UNITS_FOR_ATTACK: 80,
-        MIN_UNITS_FOR_UPGRADE: 150,
+        MIN_UNITS_FOR_UPGRADE: 200,
         MIN_UNITS_FOR_DISTRIBUTION: 120,
         MAX_UNITS_FOR_SUPPLY: 60,
     },
-    // Level: n
+    // Level: 400
     Requirement{
-        MIN_UNITS_AFTER_ATTACK: 316,
+        MIN_UNITS_AFTER_ATTACK: 75,
         MIN_UNITS_FOR_ATTACK: 100,
-        MIN_UNITS_FOR_UPGRADE: 200,
+        MIN_UNITS_FOR_UPGRADE: 300,
         MIN_UNITS_FOR_DISTRIBUTION: 160,
         MAX_UNITS_FOR_SUPPLY: 80,
     },
-    // Level: n
+    // Level: 500
     Requirement{
-        MIN_UNITS_AFTER_ATTACK: 388,
+        MIN_UNITS_AFTER_ATTACK: 100,
         MIN_UNITS_FOR_ATTACK: 120,
-        MIN_UNITS_FOR_UPGRADE: 200,
-        MIN_UNITS_FOR_DISTRIBUTION: 200,
-        MAX_UNITS_FOR_SUPPLY: 100,
+        MIN_UNITS_FOR_UPGRADE: 400,
+        MIN_UNITS_FOR_DISTRIBUTION: 250,
+        MAX_UNITS_FOR_SUPPLY: 150,
     },
     // Level: n
     Requirement{
-        MIN_UNITS_AFTER_ATTACK: 456,
-        MIN_UNITS_FOR_ATTACK: 150,
-        MIN_UNITS_FOR_UPGRADE: 300,
-        MIN_UNITS_FOR_DISTRIBUTION: 240,
-        MAX_UNITS_FOR_SUPPLY: 120,
+        MIN_UNITS_AFTER_ATTACK: 100,
+        MIN_UNITS_FOR_ATTACK: 120,
+        MIN_UNITS_FOR_UPGRADE: 400,
+        MIN_UNITS_FOR_DISTRIBUTION: 250,
+        MAX_UNITS_FOR_SUPPLY: 150,
     },
     // Level: n
     Requirement{
-        MIN_UNITS_AFTER_ATTACK: 520,
-        MIN_UNITS_FOR_ATTACK: 275,
-        MIN_UNITS_FOR_UPGRADE: 500,
-        MIN_UNITS_FOR_DISTRIBUTION: 280,
-        MAX_UNITS_FOR_SUPPLY: 140,
+        MIN_UNITS_AFTER_ATTACK: 100,
+        MIN_UNITS_FOR_ATTACK: 120,
+        MIN_UNITS_FOR_UPGRADE: 400,
+        MIN_UNITS_FOR_DISTRIBUTION: 250,
+        MAX_UNITS_FOR_SUPPLY: 150,
     },
     // Level: n
     Requirement{
-        MIN_UNITS_AFTER_ATTACK: 440,
-        MIN_UNITS_FOR_ATTACK: 300,
-        MIN_UNITS_FOR_UPGRADE: 600,
-        MIN_UNITS_FOR_DISTRIBUTION: 320,
-        MAX_UNITS_FOR_SUPPLY: 160,
+        MIN_UNITS_AFTER_ATTACK: 100,
+        MIN_UNITS_FOR_ATTACK: 120,
+        MIN_UNITS_FOR_UPGRADE: 400,
+        MIN_UNITS_FOR_DISTRIBUTION: 250,
+        MAX_UNITS_FOR_SUPPLY: 150,
     },
     // Level: n
     Requirement{
-        MIN_UNITS_AFTER_ATTACK: 380,
-        MIN_UNITS_FOR_ATTACK: 350,
-        MIN_UNITS_FOR_UPGRADE: 650,
-        MIN_UNITS_FOR_DISTRIBUTION: 360,
-        MAX_UNITS_FOR_SUPPLY: 180,
+        MIN_UNITS_AFTER_ATTACK: 100,
+        MIN_UNITS_FOR_ATTACK: 120,
+        MIN_UNITS_FOR_UPGRADE: 400,
+        MIN_UNITS_FOR_DISTRIBUTION: 250,
+        MAX_UNITS_FOR_SUPPLY: 150,
     },
     // Level: n
     Requirement{
-        MIN_UNITS_AFTER_ATTACK: 300,
-        MIN_UNITS_FOR_ATTACK: 375,
-        MIN_UNITS_FOR_UPGRADE: 700,
-        MIN_UNITS_FOR_DISTRIBUTION: 400,
-        MAX_UNITS_FOR_SUPPLY: 200,
+        MIN_UNITS_AFTER_ATTACK: 100,
+        MIN_UNITS_FOR_ATTACK: 120,
+        MIN_UNITS_FOR_UPGRADE: 400,
+        MIN_UNITS_FOR_DISTRIBUTION: 250,
+        MAX_UNITS_FOR_SUPPLY: 150,
     },
     // Level: n
     Requirement{
-        MIN_UNITS_AFTER_ATTACK: 500,
-        MIN_UNITS_FOR_ATTACK: 500,
-        MIN_UNITS_FOR_UPGRADE: 800,
-        MIN_UNITS_FOR_DISTRIBUTION: 800,
-        MAX_UNITS_FOR_SUPPLY: 400,
+        MIN_UNITS_AFTER_ATTACK: 100,
+        MIN_UNITS_FOR_ATTACK: 120,
+        MIN_UNITS_FOR_UPGRADE: 400,
+        MIN_UNITS_FOR_DISTRIBUTION: 250,
+        MAX_UNITS_FOR_SUPPLY: 150,
     },
 ];
 

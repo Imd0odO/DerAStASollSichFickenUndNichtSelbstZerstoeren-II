@@ -1,12 +1,14 @@
 use std::cmp::max;
 use std::sync::Arc;
 use itertools::Itertools;
+use tracing::info;
 use crate::external_models::{game_state::GameState as ExternalGameState, player_action::PlayerAction};
 use crate::internal_models::base::Base;
 use crate::internal_models::game_state::GameState;
 use crate::logic::config::MIN_REQUIREMENTS;
 
 pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
+    info!("Request: Game {}, Tick {}", game_state.game.uid, game_state.game.tick);
 
     let mut actions: Vec<PlayerAction> = Vec::new();
 
@@ -15,6 +17,8 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
     // sort bases
     let mut own_bases: Vec<&Arc<Base>> = Vec::new();
     let mut enemy_bases: Vec<&Arc<Base>> = Vec::new();
+
+    info!("Sorting bases");
 
     game_state.bases.values().for_each(|base| {
         if base.player == game_state.game.player {
@@ -26,7 +30,7 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
     });
 
     own_bases.iter().for_each(|own_base| {
-
+        info!("Evaluating base {}", own_base.uid);
         let mut target: u32 = 999_999_999;
         let mut cost_to_conquer: u32 = 1_000_000_000;
 
@@ -44,6 +48,7 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
             // send troops to nearest
             let dest_base = nearest_bases.iter().min_by(|a, b| own_base.distance_to_base(a).cmp(&own_base.distance_to_base(b))).unwrap();
 
+            info!("Loosing Base {}", own_base.uid);
             actions.push(PlayerAction {
                 src: own_base.uid,
                 dest: dest_base.uid,
@@ -65,6 +70,7 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
 
             // attack if match found
             if target != 999_999_999 {
+                info!("Attacking Base {}", target);
                 actions.push(PlayerAction {
                     src: own_base.uid,
                     dest: target,
@@ -76,6 +82,7 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
 
         // check if we want to upgrade
         if own_base.population > MIN_REQUIREMENTS[own_base.level as usize].MIN_UNITS_FOR_UPGRADE && own_base.level < 14 {
+            info!("Upgrading Base {}", own_base.uid);
             actions.push(PlayerAction {
                 src: own_base.uid,
                 dest: own_base.uid,
@@ -87,7 +94,7 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
 
         // check if we want to distribute
         if own_base.population > MIN_REQUIREMENTS[own_base.level as usize].MIN_UNITS_FOR_DISTRIBUTION {
-            let bases = own_base.search_n_nearest_bases(if game_state.bases.len() < 50 {game_state.bases.len() as u32} else {15}, &game_state.bases);
+            let bases = own_base.search_n_nearest_bases(if game_state.bases.len() < 50 { game_state.bases.len() as u32 } else { 15 }, &game_state.bases);
             let nearest_bases: Vec<&Arc<Base>> = bases.iter().filter(|base| base.player == game_state.game.player).collect();
 
             if nearest_bases.len() == 0 {
@@ -95,17 +102,21 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
             }
 
             // send troops to nearest
-            let dest_base = nearest_bases.iter().filter(|base| {base.population < MIN_REQUIREMENTS[own_base.level as usize].MAX_UNITS_FOR_SUPPLY}).min_by(|a, b| own_base.distance_to_base(a).cmp(&own_base.distance_to_base(b))).unwrap();
-
-            actions.push(PlayerAction {
-                src: own_base.uid,
-                dest: dest_base.uid,
-                amount: if own_base.population <= 1 {0} else {own_base.population - 1}
-            })
-
-
+            let nearest = nearest_bases.iter().filter(|base| { base.population < MIN_REQUIREMENTS[own_base.level as usize].MAX_UNITS_FOR_SUPPLY }).min_by(|a, b| own_base.distance_to_base(a).cmp(&own_base.distance_to_base(b)));
+            if let Some(dest_base) = nearest {
+                info!("Supplying Base {}", dest_base.uid);
+                actions.push(PlayerAction {
+                    src: own_base.uid,
+                    dest: dest_base.uid,
+                    amount: if own_base.population <= 1 { 0 } else { own_base.population - 1 }
+                });
+                return
+            };
+            info!("Not doing anything!");
         }
     });
+
+    info!("Success!");
 
     actions
 }

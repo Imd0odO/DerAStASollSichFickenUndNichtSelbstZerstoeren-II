@@ -6,7 +6,6 @@ use crate::external_models::base::Base as ExternalBase;
 use crate::external_models::base_level::BaseLevel;
 use itertools;
 use itertools::Itertools;
-use serde::__private::de::Content::F32;
 
 #[derive(Debug)]
 pub struct Base {
@@ -114,10 +113,9 @@ impl Base {
         let attacks = self.incoming_attacks.lock().unwrap();
         let last_attack: Option<&Weak<BoardAction>> = attacks.iter().filter(|attack| attack.upgrade().unwrap().progress.distance_remaining() < n).max_by(|attack_a, attack_b| attack_a.upgrade().unwrap().progress.distance_remaining().cmp(&attack_b.upgrade().unwrap().progress.distance_remaining()));
         let last_attack_hit_time: u32 = if last_attack.is_none() {0} else {last_attack.unwrap().upgrade().unwrap().progress.distance_remaining()};
-
         hitpoints += (last_attack_hit_time * self.config.upgrade().unwrap()[self.level as usize].spawn_rate) as i64;
 
-        self.incoming_attacks.lock().unwrap().iter().map(|attack| attack.upgrade().unwrap().src.upgrade().unwrap()).unique_by(|base| base.uid).for_each(|base| {
+        attacks.iter().map(|attack| attack.upgrade().unwrap().src.upgrade().unwrap()).unique_by(|base| base.uid).for_each(|base| {
             if hitpoints >= 0 {
                 hitpoints -= self.damage_from_base(&base) as i64;
             }

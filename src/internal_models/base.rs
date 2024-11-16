@@ -121,7 +121,7 @@ impl Base {
             attacks = self.incoming_attacks.lock().unwrap().clone()
         };
         let last_attack: Option<&Weak<BoardAction>>;
-        last_attack = attacks.iter().filter(|attack| attack.upgrade().unwrap().progress.distance_remaining() < n).max_by(|attack_a, attack_b| attack_a.upgrade().unwrap().progress.distance_remaining().cmp(&attack_b.upgrade().unwrap().progress.distance_remaining()));
+        last_attack = attacks.iter().filter(|attack| attack.upgrade().unwrap().progress.distance_remaining() < n).min_by(|attack_a, attack_b| attack_a.upgrade().unwrap().progress.distance_remaining().cmp(&attack_b.upgrade().unwrap().progress.distance_remaining()));
         let last_attack_hit_time: u32 = if last_attack.is_none() {0} else {last_attack.unwrap().upgrade().unwrap().progress.distance_remaining()};
         hitpoints += (last_attack_hit_time * self.config.upgrade().unwrap()[self.level as usize].spawn_rate) as i64;
 

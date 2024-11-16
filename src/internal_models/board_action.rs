@@ -38,11 +38,11 @@ impl BoardAction {
         });
 
         // add the attack to the target base
-        let mut a;
+        let mut attacks;
         {
-            a = dest.incoming_attacks.lock().unwrap();
+            attacks = dest.incoming_attacks.lock().unwrap().clone();
         }
-        a.push(Arc::downgrade(&attack));
+        attacks.push(Arc::downgrade(&attack));
 
         // return the attack
         attack

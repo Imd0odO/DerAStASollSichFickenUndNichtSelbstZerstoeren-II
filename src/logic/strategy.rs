@@ -114,8 +114,8 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
                 });
                 return
             };
-            info!("Not doing anything!");
         }
+        info!("Not doing anything!");
     });
 
     info!("Success!");

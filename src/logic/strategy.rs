@@ -2,6 +2,7 @@ use std::cmp::max;
 use std::sync::Arc;
 use itertools::Itertools;
 use tracing::info;
+use rand::random;
 use crate::external_models::{game_state::GameState as ExternalGameState, player_action::PlayerAction};
 use crate::internal_models::base::Base;
 use crate::internal_models::game_state::GameState;
@@ -95,7 +96,7 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
         }
 
         // check if we want to distribute
-        if own_base.population > MIN_REQUIREMENTS[own_base.level as usize].MIN_UNITS_FOR_DISTRIBUTION {
+        if own_base.population > MIN_REQUIREMENTS[own_base.level as usize].MIN_UNITS_FOR_DISTRIBUTION && random() && random() {
             let bases = own_base.search_n_nearest_bases(if game_state.bases.len() < 50 { game_state.bases.len() as u32 } else { 15 }, &game_state.bases);
             let nearest_bases: Vec<&Arc<Base>> = bases.iter().filter(|base| base.player == game_state.game.player).collect();
 

@@ -131,7 +131,7 @@ impl Base {
             }
         });
 
-        if last_attack_hit_time < n && hitpoints > 0 {hitpoints += (n * self.config.upgrade().unwrap()[self.level as usize].spawn_rate) as i64}
+        if last_attack_hit_time < n && hitpoints > 0 {hitpoints += ((n - last_attack_hit_time) * self.config.upgrade().unwrap()[self.level as usize].spawn_rate) as i64}
 
         if hitpoints < 0 {
             return None;

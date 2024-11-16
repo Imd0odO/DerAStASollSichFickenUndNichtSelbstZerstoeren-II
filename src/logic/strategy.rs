@@ -71,7 +71,7 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
                         target = enemy_base.uid;
                         distance = d;
                     }
-                    else if own_base.population - attack_cost == cost_to_conquer && d < distance {
+                    else if attack_cost == cost_to_conquer && d < distance {
                         cost_to_conquer = attack_cost;
                         target = enemy_base.uid;
                         distance = d;

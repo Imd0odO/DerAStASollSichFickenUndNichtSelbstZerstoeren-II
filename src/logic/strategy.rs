@@ -85,7 +85,7 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
                 actions.push(PlayerAction {
                     src: own_base.uid,
                     dest: target,
-                    amount: cost_to_conquer + 1,
+                    amount: cost_to_conquer + 3,
                 });
                 return
             }

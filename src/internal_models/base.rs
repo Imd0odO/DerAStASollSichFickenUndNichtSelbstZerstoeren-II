@@ -125,13 +125,13 @@ impl Base {
         let last_attack_hit_time: u32 = if last_attack.is_none() {0} else {last_attack.unwrap().upgrade().unwrap().progress.distance_remaining()};
         hitpoints += (last_attack_hit_time * self.config.upgrade().unwrap()[self.level as usize].spawn_rate) as i64;
 
-        if last_attack_hit_time < n {hitpoints += n as i64}
-
         attacks.iter().map(|attack| attack.upgrade().unwrap().src.upgrade().unwrap()).unique_by(|base| base.uid).for_each(|base| {
             if hitpoints >= 0 {
                 hitpoints -= self.damage_from_base(&base) as i64;
             }
         });
+
+        if last_attack_hit_time < n && hitpoints > 0 {hitpoints += (n * self.config.upgrade().unwrap()[self.level as usize].spawn_rate) as i64}
 
         if hitpoints < 0 {
             return None;

@@ -4,7 +4,7 @@ pub const MIN_REQUIREMENTS: [Requirement; 14] = [
     Requirement{
         MIN_UNITS_AFTER_ATTACK: 3,
         MIN_UNITS_FOR_ATTACK: 5,
-        MIN_UNITS_FOR_UPGRADE: 19,
+        MIN_UNITS_FOR_UPGRADE: 10,
         MIN_UNITS_FOR_DISTRIBUTION: 8,
         MAX_UNITS_FOR_SUPPLY: 5,
     },
@@ -12,7 +12,7 @@ pub const MIN_REQUIREMENTS: [Requirement; 14] = [
     Requirement{
         MIN_UNITS_AFTER_ATTACK: 6,
         MIN_UNITS_FOR_ATTACK: 10,
-        MIN_UNITS_FOR_UPGRADE: 38,
+        MIN_UNITS_FOR_UPGRADE: 20,
         MIN_UNITS_FOR_DISTRIBUTION: 16,
         MAX_UNITS_FOR_SUPPLY: 10,
     },
@@ -20,7 +20,7 @@ pub const MIN_REQUIREMENTS: [Requirement; 14] = [
     Requirement{
         MIN_UNITS_AFTER_ATTACK: 12,
         MIN_UNITS_FOR_ATTACK: 20,
-        MIN_UNITS_FOR_UPGRADE: 77,
+        MIN_UNITS_FOR_UPGRADE: 40,
         MIN_UNITS_FOR_DISTRIBUTION: 32,
         MAX_UNITS_FOR_SUPPLY: 20,
     },
@@ -28,7 +28,7 @@ pub const MIN_REQUIREMENTS: [Requirement; 14] = [
     Requirement{
         MIN_UNITS_AFTER_ATTACK: 16,
         MIN_UNITS_FOR_ATTACK: 25,
-        MIN_UNITS_FOR_UPGRADE: 96,
+        MIN_UNITS_FOR_UPGRADE: 50,
         MIN_UNITS_FOR_DISTRIBUTION: 40,
         MAX_UNITS_FOR_SUPPLY: 24,
     },
@@ -36,7 +36,7 @@ pub const MIN_REQUIREMENTS: [Requirement; 14] = [
     Requirement{
         MIN_UNITS_AFTER_ATTACK: 32,
         MIN_UNITS_FOR_ATTACK: 50,
-        MIN_UNITS_FOR_UPGRADE: 195,
+        MIN_UNITS_FOR_UPGRADE: 100,
         MIN_UNITS_FOR_DISTRIBUTION: 80,
         MAX_UNITS_FOR_SUPPLY: 50,
     },
@@ -44,7 +44,7 @@ pub const MIN_REQUIREMENTS: [Requirement; 14] = [
     Requirement{
         MIN_UNITS_AFTER_ATTACK: 45,
         MIN_UNITS_FOR_ATTACK: 80,
-        MIN_UNITS_FOR_UPGRADE: 294,
+        MIN_UNITS_FOR_UPGRADE: 150,
         MIN_UNITS_FOR_DISTRIBUTION: 120,
         MAX_UNITS_FOR_SUPPLY: 60,
     },
@@ -52,7 +52,7 @@ pub const MIN_REQUIREMENTS: [Requirement; 14] = [
     Requirement{
         MIN_UNITS_AFTER_ATTACK: 75,
         MIN_UNITS_FOR_ATTACK: 100,
-        MIN_UNITS_FOR_UPGRADE: 393,
+        MIN_UNITS_FOR_UPGRADE: 200,
         MIN_UNITS_FOR_DISTRIBUTION: 160,
         MAX_UNITS_FOR_SUPPLY: 80,
     },
@@ -60,7 +60,7 @@ pub const MIN_REQUIREMENTS: [Requirement; 14] = [
     Requirement{
         MIN_UNITS_AFTER_ATTACK: 100,
         MIN_UNITS_FOR_ATTACK: 120,
-        MIN_UNITS_FOR_UPGRADE: 492,
+        MIN_UNITS_FOR_UPGRADE: 250,
         MIN_UNITS_FOR_DISTRIBUTION: 250,
         MAX_UNITS_FOR_SUPPLY: 150,
     },
@@ -68,7 +68,7 @@ pub const MIN_REQUIREMENTS: [Requirement; 14] = [
     Requirement{
         MIN_UNITS_AFTER_ATTACK: 100,
         MIN_UNITS_FOR_ATTACK: 120,
-        MIN_UNITS_FOR_UPGRADE: 591,
+        MIN_UNITS_FOR_UPGRADE: 300,
         MIN_UNITS_FOR_DISTRIBUTION: 250,
         MAX_UNITS_FOR_SUPPLY: 150,
     },
@@ -76,7 +76,7 @@ pub const MIN_REQUIREMENTS: [Requirement; 14] = [
     Requirement{
         MIN_UNITS_AFTER_ATTACK: 100,
         MIN_UNITS_FOR_ATTACK: 120,
-        MIN_UNITS_FOR_UPGRADE: 690,
+        MIN_UNITS_FOR_UPGRADE: 450,
         MIN_UNITS_FOR_DISTRIBUTION: 250,
         MAX_UNITS_FOR_SUPPLY: 150,
     },
@@ -84,7 +84,7 @@ pub const MIN_REQUIREMENTS: [Requirement; 14] = [
     Requirement{
         MIN_UNITS_AFTER_ATTACK: 100,
         MIN_UNITS_FOR_ATTACK: 120,
-        MIN_UNITS_FOR_UPGRADE: 785,
+        MIN_UNITS_FOR_UPGRADE: 500,
         MIN_UNITS_FOR_DISTRIBUTION: 250,
         MAX_UNITS_FOR_SUPPLY: 150,
     },
@@ -92,7 +92,7 @@ pub const MIN_REQUIREMENTS: [Requirement; 14] = [
     Requirement{
         MIN_UNITS_AFTER_ATTACK: 100,
         MIN_UNITS_FOR_ATTACK: 120,
-        MIN_UNITS_FOR_UPGRADE: 880,
+        MIN_UNITS_FOR_UPGRADE: 550,
         MIN_UNITS_FOR_DISTRIBUTION: 250,
         MAX_UNITS_FOR_SUPPLY: 150,
     },
@@ -100,7 +100,7 @@ pub const MIN_REQUIREMENTS: [Requirement; 14] = [
     Requirement{
         MIN_UNITS_AFTER_ATTACK: 100,
         MIN_UNITS_FOR_ATTACK: 120,
-        MIN_UNITS_FOR_UPGRADE: 975,
+        MIN_UNITS_FOR_UPGRADE: 600,
         MIN_UNITS_FOR_DISTRIBUTION: 250,
         MAX_UNITS_FOR_SUPPLY: 150,
     },

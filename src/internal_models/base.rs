@@ -139,7 +139,7 @@ impl Base {
     pub fn required_to_kill_in_n_ticks(&self, base: &Arc<Base>, n: u32) -> u32 {
         let units_in_n_ticks: Option<u32> = base.units_in_n_ticks(n);
         //let attack_resistance: u32 = self.damage_from_base(&base);
-        if units_in_n_ticks.is_some() {units_in_n_ticks.unwrap()} else {0}
+        if units_in_n_ticks.is_some() {units_in_n_ticks.unwrap() + n} else {0}
     }
 
     pub fn required_to_kill_other_base(&self, base: &Arc<Base>) -> u32 {

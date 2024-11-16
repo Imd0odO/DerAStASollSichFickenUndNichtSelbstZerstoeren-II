@@ -6,6 +6,7 @@ use crate::external_models::base::Base as ExternalBase;
 use crate::external_models::base_level::BaseLevel;
 use itertools;
 use itertools::Itertools;
+use crate::external_models::path_config::PathConfig;
 
 #[derive(Debug)]
 pub struct Base {
@@ -136,13 +137,13 @@ impl Base {
         Some(hitpoints as u32)
     }
 
-    pub fn required_to_kill_in_n_ticks(&self, base: &Arc<Base>, n: u32) -> u32 {
+    pub fn required_to_kill_in_n_ticks(&self, base: &Arc<Base>, n: u32, path_config: &PathConfig) -> u32 {
         let units_in_n_ticks: Option<u32> = base.units_in_n_ticks(n);
         //let attack_resistance: u32 = self.damage_from_base(&base);
-        if units_in_n_ticks.is_some() {units_in_n_ticks.unwrap() + n} else {0}
+        if units_in_n_ticks.is_some() {units_in_n_ticks.unwrap() + if n > path_config.grace_period {(n - path_config.grace_period) * path_config.death_rate} else {0} } else {0}
     }
 
-    pub fn required_to_kill_other_base(&self, base: &Arc<Base>) -> u32 {
-        self.required_to_kill_in_n_ticks(base, self.distance_to_base(&base))
+    pub fn required_to_kill_other_base(&self, base: &Arc<Base>, path_config: &PathConfig) -> u32 {
+        self.required_to_kill_in_n_ticks(base, self.distance_to_base(&base), path_config)
     }
 }

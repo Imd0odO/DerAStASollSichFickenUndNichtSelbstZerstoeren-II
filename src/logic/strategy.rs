@@ -61,7 +61,7 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
         // check if we want to attack
         if own_base.population > MIN_REQUIREMENTS[own_base.level as usize].MIN_UNITS_FOR_ATTACK {
             enemy_bases.iter().for_each(|enemy_base| {
-                let attack_cost: u32 = own_base.required_to_kill_other_base(enemy_base);
+                let attack_cost: u32 = own_base.required_to_kill_other_base(enemy_base, &game_state.config.paths);
                 if attack_cost < cost_to_conquer && own_base.population > attack_cost {
                     if own_base.population - attack_cost > MIN_REQUIREMENTS[own_base.level as usize].MIN_UNITS_AFTER_ATTACK {
                         cost_to_conquer = attack_cost;

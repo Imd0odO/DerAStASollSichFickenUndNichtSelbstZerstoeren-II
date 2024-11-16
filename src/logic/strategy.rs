@@ -29,6 +29,8 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
         }
     });
 
+    info!("Evaluating bases");
+
     own_bases.iter().for_each(|own_base| {
         info!("Evaluating base {}", own_base.uid);
         let mut target: u32 = 999_999_999;

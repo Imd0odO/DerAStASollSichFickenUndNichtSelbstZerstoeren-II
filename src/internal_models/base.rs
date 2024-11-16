@@ -64,7 +64,11 @@ impl Base {
     }
 
     pub fn damage_from_base(&self, base: &Arc<Base>) -> u32 {
-        let mut incoming_attacks: Vec<BoardAction> = self.incoming_attacks.lock().unwrap().iter().filter(|attack| {
+        let a;
+        {
+            a = self.incoming_attacks.lock().unwrap();
+        }
+        let mut incoming_attacks: Vec<BoardAction> = a.iter().filter(|attack| {
             let attack: Arc<BoardAction> = attack.upgrade().unwrap();
             let origin: Arc<Base> = attack.src.upgrade().unwrap();
             origin.uid == base.uid && attack.player != self.player
@@ -110,7 +114,10 @@ impl Base {
 
     pub fn units_in_n_ticks(&self, n: u32) -> Option<u32> {
         let mut hitpoints: i64 = self.population as i64;
-        let attacks = self.incoming_attacks.lock().unwrap();
+        let attacks;
+        {
+            attacks = self.incoming_attacks.lock().unwrap()
+        };
         let last_attack: Option<&Weak<BoardAction>> = attacks.iter().filter(|attack| attack.upgrade().unwrap().progress.distance_remaining() < n).max_by(|attack_a, attack_b| attack_a.upgrade().unwrap().progress.distance_remaining().cmp(&attack_b.upgrade().unwrap().progress.distance_remaining()));
         let last_attack_hit_time: u32 = if last_attack.is_none() {0} else {last_attack.unwrap().upgrade().unwrap().progress.distance_remaining()};
         hitpoints += (last_attack_hit_time * self.config.upgrade().unwrap()[self.level as usize].spawn_rate) as i64;

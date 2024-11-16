@@ -36,6 +36,7 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
         info!("Evaluating base {}", own_base.uid);
         let mut target: u32 = 999_999_999;
         let mut cost_to_conquer: u32 = 1_000_000_000;
+        let mut distance: u32 = 1_000_000_000;
 
         // check if base is dying within the next 5 ticks
         if own_base.will_die() && own_base.units_in_n_ticks(5).is_none() {
@@ -63,10 +64,17 @@ pub fn decide(game_state: ExternalGameState) -> Vec<PlayerAction> {
         if own_base.population > MIN_REQUIREMENTS[own_base.level as usize].MIN_UNITS_FOR_ATTACK {
             enemy_bases.iter().for_each(|enemy_base| {
                 let attack_cost: u32 = own_base.required_to_kill_other_base(enemy_base, &game_state.config.paths);
+                let d = own_base.distance_to_base(enemy_base);
                 if attack_cost < cost_to_conquer && own_base.population > attack_cost {
                     if own_base.population - attack_cost > MIN_REQUIREMENTS[own_base.level as usize].MIN_UNITS_AFTER_ATTACK {
                         cost_to_conquer = attack_cost;
                         target = enemy_base.uid;
+                        distance = d;
+                    }
+                    else if own_base.population - attack_cost == MIN_REQUIREMENTS[own_base.level as usize].MIN_UNITS_AFTER_ATTACK && d < distance {
+                        cost_to_conquer = attack_cost;
+                        target = enemy_base.uid;
+                        distance = d;
                     }
                 }
             });
